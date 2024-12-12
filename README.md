@@ -8,3 +8,4 @@ En segundo lugar, no sé cómo darle la funcionalidad al spinner correctamente, 
 
 Y en tercer lugar, no funciona las media para hacer el responsive, he intentado hacerlo individualmente en cada página y en el main.scss pero no funciona. 
 
+Perdón por las molestias y muchas gracias de antemano!

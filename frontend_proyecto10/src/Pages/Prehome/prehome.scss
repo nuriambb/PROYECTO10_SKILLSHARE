@@ -1,0 +1,129 @@
+@use '../../globalStyles/variables' as *;
+@use '../../globalStyles/mixins' as *;
+
+.div-prehome {
+  background-color: $darkgrey;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
+
+  &.transition-out {
+    background-color: #ffffff; 
+    opacity: 0; 
+  }
+
+  .div-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .div-texto {
+    width: 50%;
+  }
+  .div-texto > p {
+    font-family: $font1;
+    font-size: 1.2em;
+    color: $yellow;
+  }
+  .h2-texto {
+    font-family: $font1;
+    color: $white;
+    margin: 0;
+
+    font-size: 3.5em;
+  }
+  .button-puzzle {
+    background-color: rgba(0, 255, 255, 0);
+    border: none;
+    border-style: none;
+    cursor: pointer;
+  }
+  .img-puzzle {
+    width: 20em;
+    height: 20em;
+    margin-bottom: 5px;
+  }
+  .img-flecha {
+    width: 5em;
+    height: 5em;
+  }
+  .div-imgs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.mini-header {
+  @include mini-header($yellow, $darkgrey, $darkgrey);
+  z-index: 10;
+  top: 0;
+}
+
+.div-prehome2 {
+  background-color: $yellow;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  #div-prehome2 active {
+    display: block;
+  }
+  .img-fondo {
+    position: absolute;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  .div-info2 {
+    @include contenedor-animado('left', 80%);
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .gif {
+    width: 10em;
+    height: 10em;
+  }
+  .mini-header2 {
+    @include mini-header(rgb(238, 236, 236), $darkgrey, $purple);
+  }
+  .texto2 {
+    width: 80%;
+    text-align: center;
+    color: $darkgrey;
+    font-family: $font1;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .div-registrate {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+  }
+  .h2-registrate {
+    font-family: $font1;
+    font-size: 1.5rem;
+    color: $darkgrey;
+  }
+  #a-registrate {
+    font-family: $font1;
+    font-size: 1.5rem;
+    color: $darkgrey;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+}

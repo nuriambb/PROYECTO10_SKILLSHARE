@@ -1,0 +1,22 @@
+@use './src/globalStyles/variables' as *;
+@use './src/globalStyles/mixins' as *;
+@use './src/Components/Header/header';
+@use './src/Pages/Home/_home.scss';
+@use './src/Pages/LoginRegister/loginRegister';
+@use './src/Pages/Talleres/tallereseventos.scss';
+@use './src/Pages/Prehome/prehome.scss';
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+#app2 {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 920px) {
+  h2 {
+    font-size: 12px;
+  }
+}

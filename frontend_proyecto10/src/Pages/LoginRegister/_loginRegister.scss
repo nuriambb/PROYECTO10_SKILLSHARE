@@ -1,0 +1,128 @@
+@use '../../globalStyles/variables' as *;
+@use '../../globalStyles/mixins' as *;
+
+.div-fondo {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-color: #e5e6ef;
+  justify-content: center;
+  align-items: center;
+}
+.page-for-login {
+  width: 70%;
+  height: 70%;
+  border-radius: 30%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.div-login {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px 0px 0px 20px;
+  padding-left: 10%;
+  padding-right: 10%;
+
+  .div-h1 {
+    font-weight: 800;
+    color: #000;
+    h1 {
+      font-family: $font1;
+      font-size: 3vw;
+    }
+  }
+
+  h2 {
+    font-family: $font1;
+    font-weight: 400;
+    font-size: 1.6em;
+    color: #000;
+    margin-bottom: 20px;
+  }
+
+  
+
+  .register-div {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      font-family: $font1;
+      font-weight: 400;
+      font-size: 1.2em;
+    }
+
+    button {
+      border-style: none;
+      background-color: rgba(255, 255, 255, 0);
+      text-decoration: underline;
+      font-family: $font1;
+      font-weight: 500;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  }
+}
+
+.div-design {
+  width: 80%;
+  height: 100%;
+  background-color: $yellow;
+  border-radius: 0px 20px 20px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .img1 {
+    width: 22vw;
+    height: auto;
+    position: absolute;
+    top: 10px;
+    left: -13vw;
+    z-index: 5;
+  }
+  .img2 {
+    width: 18vw;
+    height: auto;
+    position: absolute;
+    right: 11vw;
+  }
+  .img3 {
+    width: 38vw;
+    height: auto;
+    position: absolute;
+    bottom: -2.5vw;
+    right: -2.5vw;
+    z-index: 5;
+  }
+}
+
+.register-only {
+  input[type='text'] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  .h1-nombre {
+    margin-top: 0px;
+  }
+  .div-design {
+    background-color: $purple;
+    .img-register {
+      width: 32vw;
+      height: auto;
+    }
+  }
+}

@@ -1,0 +1,205 @@
+@use './variables' as *;
+
+@keyframes fadeInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeInFromCenter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@mixin contenedor-animado($direction, $width) {
+  width: $width;
+
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-shadow: 0px 2px 19px -6px rgba(0, 0, 0, 0.75);
+  margin: 1.5vh 6vw;
+
+  @if $direction == 'left' {
+    animation: fadeInFromLeft 1s ease forwards;
+  } @else if $direction == 'right' {
+    animation: fadeInFromRight 1s ease forwards;
+  } @else if $direction == 'center' {
+    align-self: center;
+    margin: 0 auto;
+    animation: fadeInFromCenter 1s ease;
+  }
+}
+
+@mixin mini-header(
+  $bg-color: rgb(49, 49, 49),
+  $p-color: $white,
+  $a-color: $yellow
+) {
+  width: 100vw;
+  height: 2.8em;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg-color;
+
+  p {
+    font-family: $font1;
+    color: $p-color;
+  }
+
+  p > a {
+    font-family: $font1;
+    color: $a-color;
+    font-size: 18px;
+    text-decoration: underline;
+  }
+}
+
+@mixin button-style1(
+  $bg-color,
+  $text-color,
+  $translate-x,
+  $slide-direction: null
+) {
+  letter-spacing: 1px;
+  height: 2rem;
+  width: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: $font2;
+  border: none;
+  font-size: 1em;
+  font-weight: 500;
+  border-radius: 5px;
+  background-color: $bg-color;
+  color: $text-color;
+  transform: translateX($translate-x) !important;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out !important;
+
+  &:hover {
+    @if $slide-direction == 'right' {
+      transform: translateX(calc(#{$translate-x} + 10px)) !important;
+    } @else if $slide-direction == 'left' {
+      transform: translateX(calc(#{$translate-x} -10px)) !important;
+    }
+  }
+}
+
+@mixin taller-centrado {
+  .div-taller {
+    @include contenedor-animado('left', 70%);
+
+    &:nth-child(odd) {
+      align-self: flex-end;
+      animation-name: fadeInFromLeft;
+      animation-delay: 0.5s;
+    }
+
+    &:nth-child(even) {
+      align-self: flex-start;
+      animation-name: fadeInFromRight;
+      animation-delay: 0.5s;
+    }
+
+    .div-img {
+      padding: 10px;
+      border-radius: 10px;
+      width: 50%;
+      height: 50vh;
+      overflow: hidden;
+
+      img {
+        border-radius: 10px;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .div-info1 {
+      width: 100%;
+      .div-texto1 {
+        padding: 3%;
+        text-align: start;
+
+        h3 {
+          font-family: $font1;
+          font-size: 30px;
+          margin: 1px;
+          font-weight: 500;
+        }
+
+        p {
+          font-family: $font2;
+        }
+
+        h4 {
+          font-family: $font2;
+          color: rgb(83, 83, 83);
+          font-weight: 400;
+          color: $darkgrey;
+        }
+
+        h5 {
+          font-family: $font2;
+          width: 100%;
+          text-align: start;
+          color: rgb(83, 83, 83);
+          margin: 1px;
+          font-weight: 400;
+        }
+      }
+
+      .div-buttons {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 10px;
+
+        .button1a {
+          @include button-style1($darkgrey, $yellow, 2rem, 'right');
+          box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+        }
+
+        .button2 {
+          @include button-style1($yellow, $darkgrey, -2rem, 'right');
+          box-shadow: -5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+        }
+        .button-eliminar {
+          @include button-style1($darkgrey, $yellow, 0px, 'right');
+          box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+        }
+      }
+    }
+  }
+}

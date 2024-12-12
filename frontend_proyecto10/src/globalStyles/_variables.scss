@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+@font-face {
+  font-family: 'Hatcher';
+  src: url('../../public/assets/fonts/Hatcher.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Colores
+$purple: #a485be;
+$green: #9ad28b;
+$pink: #dd9999;
+$pink2: #fee6fe;
+$yellow: #fde374;
+$white: #f7f8fa;
+$grey: #acacac;
+$darkgrey: #232022;
+$orange: #fba249;
+
+// Tipografías
+$font1: 'Poppins', sans-serif;
+$font2: 'Inter Tight', sans-serif;
+$font3: 'Josefin Sans', sans-serif;
+
+// Margenes
+$margin-xs: 5px;
+$margin-s: 10px;
+$margin-m: 15px;
+$margin-l: 20px;
+$margin-xl: 25px;
+$margin-xxl: 30px;
+
+// Padding
+$padding-xs: 5px;
+$padding-s: 10px;
+$padding-m: 15px;
+$padding-l: 20px;
+$padding-xl: 25px;
+$padding-xxl: 30px;

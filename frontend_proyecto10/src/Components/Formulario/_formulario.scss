@@ -1,0 +1,91 @@
+@use '../../globalStyles/variables' as *;
+@use '../../globalStyles/mixins' as *;
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  font-family: $font2;
+
+  .close-button {
+    position: absolute;
+
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: $darkgrey;
+    cursor: pointer;
+
+    &:hover {
+      color: $darkgrey;
+    }
+  }
+
+  .input-container {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  textarea {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  input {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+
+    &[type='email'],
+    &[type='password'] {
+      margin-bottom: 15px;
+    }
+  }
+
+  button[type='submit'] {
+    width: 60%;
+    padding: 12px;
+    background-color: $darkgrey;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-family: $font1;
+    cursor: pointer;
+    margin-bottom: 10px;
+
+    &:hover {
+      background-color: $darkgrey;
+    }
+  }
+
+  .error-msg {
+    font-family: $font1;
+    color: rgb(146, 0, 0);
+    font-size: 1.2em;
+    text-align: center;
+  }
+}
+.crear-taller-container {
+  @include contenedor-animado('right', 50%);
+  flex-direction: column;
+  height: 90%;
+  margin-top: 10%;
+  margin-left: 0px;
+  justify-content: space-around;
+  padding: 15px;
+  position: absolute;
+  z-index: 20;
+}

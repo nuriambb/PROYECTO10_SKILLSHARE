@@ -1,0 +1,132 @@
+@use '../../globalStyles/variables' as *;
+@use '../../globalStyles/mixins' as *;
+
+.section-talleres {
+  top: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .div-contenedor-talleres {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+
+    h2 {
+      font-family: $font1;
+      margin-top: 4%;
+      font-size: 4rem;
+    }
+
+    .div-fondo {
+      position: absolute;
+      z-index: -1;
+      background-color: white;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      .curva {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: auto;
+        z-index: 1;
+      }
+
+      .div-repeat {
+        width: 100%;
+        height: 100%;
+        background-image: url('./assets/curva7.svg');
+        background-repeat: repeat-y;
+        background-position: top center;
+        background-size: 100vw auto;
+        z-index: 0;
+      }
+    }
+    .organizar-talleres {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      flex-direction: column;
+      @include taller-centrado;
+    }
+  }
+}
+
+.div-taller.expanded {
+  width: 100%;
+  height: 100%;
+  .div-info-completa {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: max-height 3s ease, opacity 3s ease;
+    h5 {
+      font-size: 1em;
+    }
+
+    .div-caract {
+      width: 100%;
+      margin: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+
+      background-color: rgba(83, 83, 83, 0.075);
+      border-radius: 10px;
+    }
+    .div-buttons {
+      padding: 5px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+
+      .button1 {
+        @include button-style1($darkgrey, $yellow, 2rem);
+        box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+      }
+      .button2 {
+        @include button-style1($purple, black, -2rem);
+        box-shadow: -5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+      }
+    }
+  }
+}
+
+@keyframes fadeInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

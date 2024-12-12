@@ -1,0 +1,124 @@
+@use '../../globalStyles/variables' as *;
+@use '../../globalStyles/mixins' as *;
+
+.div-fondo-home {
+  position: relative;
+  z-index: 1;
+  .curva-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    z-index: 0;
+    transform: scaleX(-1);
+  }
+}
+.div-home {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+
+  .div-texto {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    h1 {
+      font-family: $font1;
+      margin: 2px;
+      font-size: 6rem;
+    }
+    h2 {
+      font-weight: 500;
+      font-family: $font2;
+      letter-spacing: 3px;
+      font-size: 1em;
+      margin-top: 0;
+      transform: translateY(-1.3em);
+    }
+
+    .div-buttons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .button1 {
+        @include button-style1($darkgrey, $yellow, 2rem, 'right');
+        box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+      }
+      .button2 {
+        @include button-style1($yellow, $darkgrey, -2rem, 'right');
+        box-shadow: -5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+      }
+    }
+  }
+
+  .div-talleres {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    gap: 2em;
+    flex-wrap: wrap;
+    .div-taller {
+      padding-bottom: 1.5rem;
+      box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 10px;
+      width: 16rem;
+      height: 36vh;
+      background-color: $white;
+      cursor: pointer;
+
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transform: translateY(-4px);
+      }
+
+      .div-img {
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      h3 {
+        width: 50%;
+        font-family: $font1;
+        font-weight: 500;
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+

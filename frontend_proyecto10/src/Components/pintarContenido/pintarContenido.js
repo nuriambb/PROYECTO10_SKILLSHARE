@@ -1,7 +1,5 @@
-
 import { crearBotones } from '../Buttons/buttons'
 import { apiFetch } from '../../Utils/apiFetch'
-
 
 export const pintarContenido = async (
   contenido,
@@ -144,8 +142,7 @@ export const pintarContenido = async (
 
     const buttonSaberMas = button1a
     buttonSaberMas?.addEventListener('click', () => {
-      window.location.hash = `#talleres?id=${item._id}`
-
+      window.history.pushState({}, 'Talleres', `#talleres?id=${item._id}`)
       pDescripcionReducida.style.display = 'none'
       divButtons1.style.display = 'none'
       divInfoCompleta.style.display = 'flex'
@@ -166,11 +163,8 @@ export const pintarContenido = async (
     })
 
     const buttonsApuntarme = divItem.querySelectorAll('.button2')
-    let reservedKey =
-      tipo === 'taller' ? 'talleresReservados' : 'eventosReservados'
-    let user = JSON.parse(localStorage.getItem('user'))
 
-    let reservedItems = user[reservedKey] || []
+    let reservedItems = await getReservedItems(tipo)
 
     buttonsApuntarme.forEach((button) => {
       const itemId = item._id
@@ -202,11 +196,7 @@ export const pintarContenido = async (
 
             if (!reservedItems.includes(itemId)) {
               reservedItems.push(itemId)
-              console.log(`Lista de ${reservedKey} después:`, reservedItems)
-
-              user[reservedKey] = reservedItems
-
-              localStorage.setItem('user', JSON.stringify(user))
+              console.log('IDs reservados después:', reservedItems)
             }
           } else {
             alert(data.error || `Error al intentar apuntarse al ${tipo}`)
@@ -221,5 +211,21 @@ export const pintarContenido = async (
     if (elementoPadre) {
       elementoPadre.append(divItem)
     }
+  }
+}
+const getReservedItems = async (tipo) => {
+  try {
+    const reservedKey =
+      tipo === 'taller' ? 'talleresReservados' : 'eventosReservados'
+
+    const user = await apiFetch('/users/perfil', { method: 'GET' })
+
+    const reservedItems = (user[reservedKey] || []).map((item) => item._id)
+
+    console.log(`IDs reservados (${reservedKey}):`, reservedItems)
+    return reservedItems
+  } catch (error) {
+    console.error('Error al obtener los elementos reservados:', error)
+    return []
   }
 }

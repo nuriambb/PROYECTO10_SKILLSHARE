@@ -124,10 +124,51 @@ const apuntarseEvento = async (req, res) => {
     })
   }
 }
+
+const desapuntarseEvento = async (req, res) => {
+  const { id } = req.body
+  const userId = req.user.id // id del usuario autenticado
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'ID de evento no válido' })
+    }
+
+    const evento = await Evento.findById(id)
+    if (!evento) {
+      return res.status(404).json({ error: 'Evento no encontrado' })
+    }
+
+    const user = await User.findById(userId)
+
+    if (!user.eventosReservados.includes(id)) {
+      return res
+        .status(400)
+        .json({ error: 'Este evento no está reservado por el usuario' })
+    }
+
+    evento.plazas += 1
+    await evento.save()
+
+    user.eventosReservados = user.eventosReservados.filter(
+      (eventoReservado) => eventoReservado.toString() !== id
+    )
+    await user.save()
+
+    return res.status(200).json({ message: 'Desapuntado con éxito' })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      message: 'Ha ocurrido un error al desapuntarse del evento',
+      error: error.message
+    })
+  }
+}
 module.exports = {
   getEvento,
   postEvento,
   putEvento,
   deleteEvento,
-  apuntarseEvento
+  apuntarseEvento,
+  desapuntarseEvento
 }

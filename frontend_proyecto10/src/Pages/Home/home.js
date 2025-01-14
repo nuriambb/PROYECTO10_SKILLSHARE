@@ -11,8 +11,7 @@ export const Home = async () => {
 
   const app2 = document.getElementById('app2')
   app2.innerHTML = ''
-  const miniHeader = document.getElementsByClassName('mini-header')[0]
-  miniHeader.innerHTML = ''
+ 
 
   main.innerHTML = ''
 
@@ -42,10 +41,10 @@ export const Home = async () => {
   )
 
   button2.addEventListener('click', () => {
-    Navigate('Talleres')
+    Navigate('talleres')
   })
   button1.addEventListener('click', () => {
-    Navigate('Sobre Nosotros')
+    Navigate('sobre-nosotros')
   })
 
   divTexto.append(h1Skill, h2Info, divButtons)
@@ -62,8 +61,9 @@ export const Home = async () => {
     divTaller.addEventListener('click', () => {
       const itemId = divTaller.getAttribute('data-id')
       if (itemId) {
-        window.location.href = `#talleres?id=${itemId}`
-        Navigate(Talleres(itemId))
+        window.history.pushState({}, 'Talleres', `#talleres?id=${itemId}`)
+
+        Navigate({ page: 'talleres', id: itemId })
       }
     })
   })

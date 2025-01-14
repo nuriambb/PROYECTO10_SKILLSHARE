@@ -7,6 +7,11 @@ export const preHome = async () => {
   const app2 = document.querySelector('#app2')
   app2.id = 'app2'
 
+  const header = document.querySelector('header')
+  if (header) {
+    header.style.display = 'none'
+  }
+
   const miniHeader = document.createElement('div')
   miniHeader.className = 'mini-header'
   miniHeader.innerHTML = `<p> <a href="#login" id="loginlink">Inicia sesión</a> si ya estás registrado</p>`
@@ -50,10 +55,6 @@ const cambiarPrehome2 = () => {
   app2.innerHTML = ''
   const divPrehome2 = document.createElement('div')
   divPrehome2.className = 'div-prehome2'
-  //const imgFondo = document.createElement('img')
-  //imgFondo.className = 'img-fondo'
-  //imgFondo.src = './assets/fondo2.svg'
-  //divPrehome2.append(imgFondo)
 
   const divInfo2 = document.createElement('div')
   divInfo2.className = 'div-info2'
@@ -73,7 +74,7 @@ const cambiarPrehome2 = () => {
   aregister.href = '#registro'
   aregister.id = 'a-registrate'
   const h2Registrate = document.createElement('h2')
-  h2Registrate.textContent = 'y empieza a explorar un mundo de posibiidades.'
+  h2Registrate.textContent = 'y empieza a explorar un mundo de posibilidades.'
   h2Registrate.className = 'h2-registrate'
 
   divregistrate.append(aregister, h2Registrate)

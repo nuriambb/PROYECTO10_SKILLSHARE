@@ -31,8 +31,9 @@ export const Eventos = async () => {
 
   console.log('ya funciona eventos', eventos)
 
-  pintarContenido(eventos, 'evento', divOrganizarEventos)
-  desplegarItemUrl()
+  pintarContenido(eventos, 'evento', divOrganizarEventos).then(() => {
+    desplegarItemUrl()
+  })
 
   divContenedorEventos.append(divFondo, h2Eventos, divOrganizarEventos)
   sectionEventos.append(divContenedorEventos)

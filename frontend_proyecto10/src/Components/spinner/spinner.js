@@ -5,3 +5,4 @@ export const Spinner = () => {
   spinner.innerHTML = '<div class="loading"></div>'
   return spinner
 }
+document.body.appendChild(Spinner())

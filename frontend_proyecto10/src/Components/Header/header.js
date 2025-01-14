@@ -7,20 +7,25 @@ import { Eventos } from '../../Pages/Eventos/eventos'
 export const Header = (navigate) => {
   const header = document.querySelector('header')
   const nav = document.createElement('nav')
+  const burgerButton = document.createElement('button')
+
+  burgerButton.classList.add('burger-button')
+  burgerButton.innerHTML = '&#9776;'
+  header.append(burgerButton)
 
   const routes = [
-    { texto: 'Home', href: '#home', funcion: () => navigate('Home') },
+    { texto: 'Home', href: '#home', funcion: () => navigate('home') },
 
     {
       texto: 'Talleres',
       href: '#talleres',
-      funcion: () => navigate('Talleres')
+      funcion: () => navigate('talleres')
     },
-    { texto: 'Eventos', href: '#eventos', funcion: () => navigate('Eventos') },
+    { texto: 'Eventos', href: '#eventos', funcion: () => navigate('eventos') },
     {
       texto: 'Mi Espacio',
-      href: '#perfil',
-      funcion: () => navigate('Mi Espacio')
+      href: '#mi-espacio',
+      funcion: () => navigate('mi-espacio')
     }
   ]
 
@@ -30,10 +35,14 @@ export const Header = (navigate) => {
     a.href = route.href
     a.addEventListener('click', (e) => {
       e.preventDefault()
+      console.log('Ruta clickeada:', route.texto)
       route.funcion()
     })
     nav.append(a)
   }
 
   header.append(nav)
+  burgerButton.addEventListener('click', () => {
+    nav.classList.toggle('hidden') 
+  })
 }

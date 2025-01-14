@@ -3,6 +3,7 @@ import { preHome } from './src/Pages/Prehome/prehome'
 import { Header } from './src/Components/Header/header'
 import { Home } from './src/Pages/Home/home'
 import { loginRegister } from './src/Pages/LoginRegister/loginRegister'
+import { Footer } from './src/Components/footer/footer'
 /*import { Talleres } from './src/Pages/Talleres/talleres'
 import { Eventos } from './src/Pages/Eventos/eventos'
 import { miEspacio } from './src/Pages/miEspacio/miEspacio'
@@ -17,41 +18,25 @@ const Main = () => {
   app.appendChild(main)
 
   Header(Navigate)
-  Navigate('Home')
+
   preHome()
 }
 
 Main()
+Footer()
 
-const renderHome = () => {
-  const app = document.querySelector('#app')
-  const header = document.createElement('header')
-  const main = document.querySelector('main')
+document.addEventListener('click', (evento) => {
+  const target = evento.target
 
-  app.insertBefore(header, main)
-  Header()
-  Home()
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const loginkink = document.getElementById('loginlink')
-  const prehome = document.getElementsByClassName('div-prehome')
-  const prehome2 = document.getElementsByClassName('div-prehome2')
-  const miniHeader = document.getElementsByClassName('mini-header')
+  if (target.id === 'loginlink') {
+    const prehome = document.querySelector('.div-prehome')
+    const prehome2 = document.querySelector('.div-prehome2')
+    const miniHeader = document.querySelector('.mini-header')
 
-  loginkink.addEventListener('click', () => {
-    if (prehome.length > 0) {
-      prehome[0].style.display = 'none'
-    }
-    if (prehome2.length > 0) {
-      prehome2[0].style.display = 'none'
-    }
-    if (miniHeader.length > 0) {
-      miniHeader[0].style.display = 'none'
-    }
-    loginRegister().then((isAuthenticated) => {
-      if (isAuthenticated) {
-        renderHome()
-      }
-    })
-  })
+    if (prehome) prehome.style.display = 'none'
+    if (prehome2) prehome2.style.display = 'none'
+    if (miniHeader) miniHeader.style.display = 'none'
+
+    loginRegister()
+  }
 })

@@ -4,6 +4,7 @@ import { apiFetch } from '../../Utils/apiFetch'
 import { Eventos } from '../Eventos/eventos'
 import { crearFormularioTaller } from '../../Components/Formulario/formulario'
 import { pintarContenido } from '../../Components/pintarContenido/pintarContenido'
+import { preHome } from '../Prehome/prehome'
 import './_miEspacio.scss'
 
 export const miEspacio = async () => {
@@ -36,14 +37,14 @@ export const miEspacio = async () => {
           
               <img id="icono" src="./assets/treservados.png"  />
             <h3 id="toggle-reservados">
-              <i class="fas fa-calendar-check"></i> Talleres Reservados (<span id="reservados-count">0</span>)
+              <i class="fas fa-calendar-check"></i> Talleres Reservados 
             </h3>
             <ul id="talleres-reservados"></ul>
           </div>
           <div id="div-t-impartidos">
              <img id="icono" src="./assets/timpartidos.png"  />
             <h3 id="toggle-impartidos">
-              <i class="fas fa-chalkboard-teacher"></i> Talleres Impartidos (<span id="impartidos-count">0</span>)
+              <i class="fas fa-chalkboard-teacher"></i> Talleres Impartidos 
             </h3>
             <ul id="talleres-impartidos"></ul>
           </div>
@@ -51,7 +52,7 @@ export const miEspacio = async () => {
         <div id="div-eventos">
          <img id="icono" src="./assets/ereservados.png"  />
           <h3 id="toggle-eventos">
-            <i class="fas fa-calendar"></i> Eventos Reservados (<span id="eventos-count">0</span>)
+            <i class="fas fa-calendar"></i> Eventos Reservados
           </h3>
           <ul id="eventos-reservados"></ul>
         </div>
@@ -164,7 +165,7 @@ const getUserProfile = async () => {
     document.getElementById('nombre-usuario').textContent = data.name
     document.getElementById('email').textContent = data.email
 
-    const populateList = (listId, items, navigateFn) => {
+    const populateList = (listId, items, navigateFn, tipo) => {
       const listElement = document.getElementById(listId)
       items.forEach((item) => {
         const li = document.createElement('li')
@@ -179,30 +180,39 @@ const getUserProfile = async () => {
         unreserveButton.classList.add('unreserve-button')
         unreserveButton.addEventListener('click', async (event) => {
           event.stopPropagation()
-          await desapuntarseTaller(item._id, listElement, li)
+          await desapuntarse(item._id, tipo, listElement, li)
         })
         titleDiv.appendChild(unreserveButton)
         li.appendChild(titleDiv)
         li.addEventListener('click', () => {
-          window.location.href = `#${navigateFn.name.toLowerCase()}?id=${
-            item._id
-          }`
-          Navigate(navigateFn(item._id))
+          const pageName = navigateFn.name.toLowerCase()
+          const itemId = item._id
+
+          Navigate({ page: pageName, id: itemId })
         })
+
         listElement.appendChild(li)
       })
     }
 
-    populateList('talleres-reservados', data.talleresReservados, Talleres)
-    populateList('talleres-impartidos', data.talleresImpartidos, Talleres)
-    populateList('eventos-reservados', data.eventosReservados, Eventos)
-
-    document.getElementById('reservados-count').textContent =
-      data.talleresReservados.length
-    document.getElementById('impartidos-count').textContent =
-      data.talleresImpartidos.length
-    document.getElementById('eventos-count').textContent =
-      data.eventosReservados.length
+    populateList(
+      'talleres-reservados',
+      data.talleresReservados,
+      Talleres,
+      'taller'
+    )
+    populateList(
+      'talleres-impartidos',
+      data.talleresImpartidos,
+      Talleres,
+      'taller'
+    )
+    populateList(
+      'eventos-reservados',
+      data.eventosReservados,
+      Eventos,
+      'evento'
+    )
   } catch (error) {
     console.error('Error al obtener el perfil:', error)
   }
@@ -210,10 +220,13 @@ const getUserProfile = async () => {
 function cerrarSesion() {
   localStorage.removeItem('token')
   document.cookie = 'token=; Max-Age=0; path=/;'
-  Navigate('Prehome')
+  localStorage.removeItem('user')
+
+  window.location.hash = '#prehome' 
+  location.reload()
 }
 
-const desapuntarseTaller = async (idTaller, listElement, listItem) => {
+const desapuntarse = async (id, tipo, listElement, listItem) => {
   const token = localStorage.getItem('token')
   if (!token) {
     alert('No estás autenticado')
@@ -221,26 +234,21 @@ const desapuntarseTaller = async (idTaller, listElement, listItem) => {
   }
 
   try {
-    const response = await apiFetch(
-      '/talleres/desapuntarse/',
-      {
-        method: 'POST',
-        body: JSON.stringify({ id: idTaller })
-      },
-      console.log('ID del taller:', idTaller)
-    )
+    const pluralTipo = tipo === 'taller' ? 'talleres' : `${tipo}s`
 
-    console.log('Response de la API:', response)
+    const response = await apiFetch(`/${pluralTipo}/desapuntarse/`, {
+      method: 'POST',
+      body: JSON.stringify({ id })
+    })
     if (response && response.message === 'Desapuntado con éxito') {
-      alert('Te has desapuntado del taller exitosamente')
+      alert(`Te has desapuntado del ${tipo} exitosamente`)
       listElement.removeChild(listItem)
     } else {
       const errorData = await response.json()
-      alert(`Error: ${errorData.error || 'No se pudo desapuntar del taller'}`)
-      return
+      alert(`Error: ${errorData.error || `No se pudo desapuntar del ${tipo}`}`)
     }
-  } catch {
-    console.error('Error al desapuntarse del taller')
-    alert('Ocurrió un error al intentar desapuntarse')
+  } catch (error) {
+    console.error(`Error al desapuntarse del ${tipo}:`, error)
+    alert(`Ocurrió un error al intentar desapuntarse del ${tipo}`)
   }
 }

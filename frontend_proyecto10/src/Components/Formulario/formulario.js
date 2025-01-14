@@ -1,6 +1,6 @@
 import './_formulario.scss'
 import { apiFetch } from '../../Utils/apiFetch'
-export const crearFormulario = (titulo, elementoPadre, opciones = {}) => {
+export const crearFormulario = (titulo, elementoPadre, opciones = {}, tipo) => {
   const form = document.createElement('form')
   const title = document.createElement('h2')
   title.textContent = titulo
@@ -35,9 +35,13 @@ export const crearFormulario = (titulo, elementoPadre, opciones = {}) => {
 
   const submitButton = document.createElement('button')
   submitButton.setAttribute('type', 'submit')
-  submitButton.textContent = 'Iniciar sesión'
-  form.appendChild(submitButton)
 
+  if (tipo === 'registro') {
+    submitButton.textContent = 'Regístrate'
+  } else {
+    submitButton.textContent = 'Iniciar sesión'
+  }
+  form.appendChild(submitButton)
   elementoPadre.appendChild(form)
   return form
 }
@@ -102,7 +106,6 @@ export const crearFormularioTaller = () => {
     const price = document.getElementById('price').value
     const img = document.getElementById('img').files[0]
 
-
     const formData = new FormData()
     formData.append('titulo', titulo)
     formData.append('descripcion', descripcion)
@@ -114,7 +117,6 @@ export const crearFormularioTaller = () => {
     if (img) {
       formData.append('img', img)
     }
-
 
     try {
       const response = await apiFetch('/talleres/', {

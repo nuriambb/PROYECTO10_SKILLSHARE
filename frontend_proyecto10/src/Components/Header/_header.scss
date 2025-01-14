@@ -10,6 +10,10 @@ header {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.329);
   z-index: 30;
+  @media (max-width: 750px) {
+    height: auto;
+    background-color: rgba(255, 0, 0, 0);
+  }
 }
 nav {
   background-color: rgba(255, 255, 255, 0.329);
@@ -18,7 +22,25 @@ nav {
   justify-content: space-evenly;
   display: flex;
   gap: 20px;
+  &.hidden {
+    display: none;
+  }
+  @media (max-width: 750px) {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 7vh;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.9); // Fondo más opaco
+    padding: 1rem 0;
+  }
+  @media (min-width: 750px) {
+    display: flex !important;
+  }
 }
+
 a {
   font-size: 1.2rem;
   text-decoration: none;
@@ -27,7 +49,21 @@ a {
   transition: transform 0.3s ease;
 
   &:hover {
-   
     transform: translateY(4px); /* Movimiento hacia arriba */
+  }
+}
+.burger-button {
+  padding-left: 10px;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 31;
+  @media (max-width: 750px) {
+    display: block;
+  }
+  @media (max-width: 450px) {
+    font-size: 1.5rem;
   }
 }

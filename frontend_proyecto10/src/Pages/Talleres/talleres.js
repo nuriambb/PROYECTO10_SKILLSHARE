@@ -35,8 +35,10 @@ export const Talleres = async () => {
     tallerElement.id = `taller-${taller._id}`
   })
 
-  pintarContenido(talleres, 'taller', divOrganizarTalleres)
-  desplegarItemUrl()
+  pintarContenido(talleres, 'taller', divOrganizarTalleres).then(() => {
+    desplegarItemUrl() 
+  })
+
 
   divContenedorTalleres.append(divFondo, h2Talleres, divOrganizarTalleres)
   sectionTalleres.append(divContenedorTalleres)

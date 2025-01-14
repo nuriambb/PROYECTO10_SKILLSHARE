@@ -4,6 +4,7 @@
 .div-fondo-home {
   position: relative;
   z-index: 1;
+  overflow: hidden;
   .curva-fondo {
     position: absolute;
     top: 0;
@@ -17,12 +18,13 @@
 .div-home {
   text-align: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
+  overflow: hidden;
 
   .div-texto {
     width: 100%;
@@ -33,18 +35,28 @@
     flex-direction: column;
     text-align: center;
     justify-content: center;
+    @media (max-width: 600px) {
+      width: 80%;
+    }
     h1 {
       font-family: $font1;
       margin: 2px;
       font-size: 6rem;
+      @media (max-width: 600px) {
+        font-size: 15vw;
+      }
     }
     h2 {
+      padding: 5px;
       font-weight: 500;
       font-family: $font2;
       letter-spacing: 3px;
       font-size: 1em;
       margin-top: 0;
       transform: translateY(-1.3em);
+      @media (max-width: 600px) {
+        font-size: 4.5vw;
+      }
     }
 
     .div-buttons {
@@ -56,17 +68,33 @@
       .button1 {
         @include button-style1($darkgrey, $yellow, 2rem, 'right');
         box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+        @media (max-width: 450px) {
+          width: 12rem;
+          font-size: 0.9em;
+        }
+        @media (max-width: 300px) {
+          width: 8rem;
+          font-size: 0.8em;
+        }
       }
       .button2 {
         @include button-style1($yellow, $darkgrey, -2rem, 'right');
         box-shadow: -5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+        @media (max-width: 450px) {
+          width: 12rem;
+          font-size: 0.9em;
+        }
+        @media (max-width: 300px) {
+          width: 8rem;
+          font-size: 0.8em;
+        }
       }
     }
   }
 
   .div-talleres {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -75,6 +103,7 @@
     z-index: 1;
     gap: 2em;
     flex-wrap: wrap;
+    padding: 0px 20px 20px 20px;
     .div-taller {
       padding-bottom: 1.5rem;
       box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
@@ -94,6 +123,14 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         transform: translateY(-4px);
       }
+      @media (max-width: 450px) {
+        width: 12rem;
+        height: 28vh;
+      }
+      @media (max-width: 300px) {
+        width: 9rem;
+        height: 24vh;
+      }
 
       .div-img {
         border-radius: 5px;
@@ -112,13 +149,19 @@
       }
 
       h3 {
+        padding: 5px;
         width: 50%;
         font-family: $font1;
         font-weight: 500;
         font-size: 1em;
+        @media (max-width: 90px) {
+          width: 80%;
+        }
+        @media (max-width: 450px) {
+          width: 80%;
+          font-size: 0.8em;
+        }
       }
     }
   }
 }
-
-

@@ -1,0 +1,57 @@
+@use '../../globalStyles/variables' as *;
+
+footer {
+  background-color: #302c2e;
+  color: white;
+  padding: 0.8rem 0.6em;
+  text-align: center;
+  font-family: $font2;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+
+      a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $yellow;
+        }
+      }
+    }
+
+    .footer-copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  @media (max-width: 750px) {
+    .footer-container {
+      flex-direction: column;
+      text-align: center;
+
+      .footer-links {
+        gap: 0.5rem;
+      }
+    }
+  }
+}

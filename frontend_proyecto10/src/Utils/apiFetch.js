@@ -1,3 +1,4 @@
+import { Spinner } from '../Components/spinner/spinner'
 export async function apiFetch(endpoint, options = {}) {
   const baseUrl = 'http://localhost:3000/api/v1'
   const token = localStorage.getItem('token')
@@ -20,7 +21,7 @@ export async function apiFetch(endpoint, options = {}) {
 
     body: options.body
   }
-
+  showSpinner()
   try {
     console.log('URL completa:', `${baseUrl}${endpoint}`)
     console.log('Configuración de la solicitud:', config)
@@ -39,10 +40,25 @@ export async function apiFetch(endpoint, options = {}) {
       const errorMessage = responseData?.message || 'Error en la solicitud'
       throw new Error(errorMessage)
     }
-
+    hideSpinner()
     return responseData || response
   } catch (error) {
     console.error('Error en fetch:', error.message)
     throw error
+  }
+}
+
+function showSpinner() {
+  const spinnerContainer = document.querySelector('.spinner')
+  console.log('Mostrando spinner:', spinnerContainer)
+  if (spinnerContainer) {
+    spinnerContainer.style.display = 'flex'
+  }
+}
+
+function hideSpinner() {
+  const spinnerContainer = document.querySelector('.spinner')
+  if (spinnerContainer) {
+    spinnerContainer.style.display = 'none'
   }
 }

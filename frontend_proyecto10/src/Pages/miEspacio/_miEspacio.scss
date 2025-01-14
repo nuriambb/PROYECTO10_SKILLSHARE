@@ -59,6 +59,9 @@
     justify-content: center;
     align-items: center;
     margin-top: 10vh;
+    @media (max-width: 650px) {
+      flex-direction: column;
+    }
     #div-info1 {
       @include contenedor-animado('left', 30%);
       flex-direction: column;
@@ -66,6 +69,11 @@
       margin-right: 0px;
       justify-content: space-evenly;
       height: 75vh;
+      @media (max-width: 650px) {
+        width: 85%;
+        height: 50vh;
+        margin: 0px;
+      }
       h1 {
         font-family: $font1;
       }
@@ -81,6 +89,10 @@
         border: 2px solid #ccc;
         background-color: #f0f0f0;
         transition: box-shadow 0.3s ease, transform 0.3s ease;
+        @media (max-width: 750px) {
+          width: 150px;
+          height: 150px;
+        }
 
         &:hover {
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -112,16 +124,37 @@
         #cerrar-sesion {
           @include button-style1($darkgrey, $yellow, 0px, 'right');
           box-shadow: -5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+          @media (max-width: 920px) {
+            width: 12rem;
+            font-size: 0.9em;
+          }
+          @media (max-width: 750px) {
+            width: 10rem;
+            font-size: 0.8em;
+          }
+          @media (max-width: 350px) {
+            width: 8rem;
+          }
+          @media (max-width: 300px) {
+            width: 6rem;
+          }
         }
       }
     }
 
     #perfil-info {
       @include contenedor-animado('right', 50%);
+      padding: 5px;
       flex-direction: column;
       height: 100%;
       margin-left: 0px;
       justify-content: space-around;
+      @media (max-width: 650px) {
+        width: 80%;
+        margin: 0px;
+        padding: 10px;
+        height: 100%;
+      }
       #div-talleres {
         height: 100%;
         width: 100%;
@@ -194,6 +227,7 @@
         }
       }
       .title-div {
+        gap: 5px;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -204,7 +238,7 @@
         border-style: none;
         font-family: $font2;
         padding: 4px;
-        border-radius: 30px;
+        border-radius: 10px;
         margin-left: 2px;
         cursor: pointer;
         transition: transform 0.3s ease;
@@ -219,6 +253,7 @@
     @include contenedor-animado('center', 80%);
     flex-direction: column;
     padding: 5px;
+    margin-bottom: 20px;
     .div-titulo-talleres {
       display: flex;
       flex-direction: row;
@@ -227,13 +262,31 @@
       align-items: center;
       border-bottom: 1px solid rgba(128, 128, 128, 0.171);
       h2 {
+        font-size: 2em;
         text-align: start;
         width: 50%;
         font-family: $font1;
+        @media (max-width: 600px) {
+          font-size: 1.3em;
+        }
       }
       #crear-taller {
         @include button-style1($yellow, $darkgrey, 0px, 'right');
         box-shadow: 5px 2px 15px -6px rgba(0, 0, 0, 0.75);
+        @media (max-width: 920px) {
+          width: 12rem;
+          font-size: 0.9em;
+        }
+        @media (max-width: 750px) {
+          width: 8rem;
+          font-size: 0.8em;
+        }
+        @media (max-width: 350px) {
+          width: 6rem;
+        }
+        @media (max-width: 300px) {
+          width: 4rem;
+        }
       }
     }
 

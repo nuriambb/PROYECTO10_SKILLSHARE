@@ -1,12 +1,14 @@
 import { crearFormulario } from '../../Components/Formulario/formulario'
 import { Home } from '../Home/home'
+import { Navigate } from '../../Routes/navigate'
 import './_loginRegister.scss'
-import { Spinner } from '../../Components/spinner/spinner'
 
 export const Register = (elementoPadre) => {
-  //const main = document.querySelector('main')
-  //main.innerHTML = ''
   elementoPadre.innerHTML = ''
+  const header = document.querySelector('header')
+  if (header) {
+    header.style.display = 'none'
+  }
 
   const registserPage = document.createElement('div')
   registserPage.className = 'register-only'
@@ -39,17 +41,18 @@ export const Register = (elementoPadre) => {
   divFondo.append(registerDivFondo)
   registserPage.append(divFondo)
 
-  const form = crearFormulario('Registrarse', elementoPadre, { nombre: true })
+  const form = crearFormulario(
+    'Registrarse',
+    elementoPadre,
+    { nombre: true },
+    'registro'
+  )
   form.className = 'form-register'
 
   const errorMsg = document.createElement('p')
   errorMsg.className = 'error-msg'
   errorMsg.style.display = 'none'
   form.appendChild(errorMsg)
-
-  const spinner = Spinner()
-  spinner.style.display = 'none'
-  form.appendChild(spinner)
 
   const inputName = form.querySelector('input[placeholder="nombre"]')
   const inputEmail = form.querySelector('input[placeholder="email"]')
@@ -58,7 +61,6 @@ export const Register = (elementoPadre) => {
   const showError = (message) => {
     errorMsg.textContent = message
     errorMsg.style.display = 'flex'
-    spinner.style.display = 'none'
   }
 
   form.addEventListener('submit', async (evento) => {
@@ -79,7 +81,6 @@ export const Register = (elementoPadre) => {
     }
 
     errorMsg.style.display = 'none'
-    spinner.style.display = 'flex'
 
     try {
       const res = await fetch('http://localhost:3000/api/v1/users/register', {
@@ -87,7 +88,6 @@ export const Register = (elementoPadre) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
       })
-      spinner.style.display = 'none'
 
       if (!res.ok) {
         const errorData = await res.json()
@@ -107,11 +107,10 @@ export const Register = (elementoPadre) => {
       localStorage.setItem('token', data.token)
       console.log('Registro exitoso:', data)
       registserPage.style.display = 'none'
-      Home()
+      Navigate('home')
     } catch (error) {
       console.error('Error al registrar el usuario:', error)
       showError('Error al registrar el usuario.')
-      spinner.style.display = 'none'
     }
   })
   registerFormDiv.append(form)

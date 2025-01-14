@@ -4,10 +4,15 @@ import { crearFormulario } from '../../Components/Formulario/formulario'
 import { Register } from './register'
 import { Spinner } from '../../Components/spinner/spinner'
 import { Collage } from '../../Components/collage/collage'
+import { Navigate } from '../../Routes/navigate'
 
 export const loginRegister = () => {
   const main = document.querySelector('main')
   main.innerHTML = ''
+  const header = document.querySelector('header')
+  if (header) {
+    header.style.display = 'none'
+  }
 
   const divFondo = document.createElement('div')
   divFondo.className = 'div-fondo'
@@ -59,19 +64,21 @@ export const loginRegister = () => {
   main.appendChild(registerFormDiv)
 
   buttonRegister.addEventListener('click', () => {
-    pageForLogin.style.display = 'none'
-    registerFormDiv.style.display = 'block'
-    window.location.hash = 'registro'
-    divFondo.style.display = 'none'
+    Navigate('registro')
   })
 }
 
 const Login = (elementoPadre) => {
-  const form = crearFormulario('¡Bienvenide de nuevo!', elementoPadre)
+  const form = crearFormulario(
+    '¡Bienvenide de nuevo!',
+    elementoPadre,
+    {},
+    'login'
+  )
   form.className = 'form'
 
   const spinner = Spinner()
-   spinner.style.display = 'none'
+  spinner.style.display = 'none'
   form.appendChild(spinner)
 
   const inputEmail = form.querySelector('input[placeholder="email"]')
@@ -95,8 +102,6 @@ const Login = (elementoPadre) => {
 
       return
     }
-
-   
 
     try {
       const res = await fetch('http://localhost:3000/api/v1/users/login', {
@@ -122,7 +127,8 @@ const Login = (elementoPadre) => {
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
       console.log('Inicio de sesión exitoso:', data)
-      Home()
+
+      Navigate('home')
     } catch (error) {
       console.error('Error al iniciar sesión:', error)
 

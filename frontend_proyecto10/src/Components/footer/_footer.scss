@@ -1,6 +1,7 @@
 @use '../../globalStyles/variables' as *;
 
 footer {
+  overflow: hidden;
   background-color: #302c2e;
   color: white;
   padding: 0.8rem 0.6em;

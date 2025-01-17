@@ -1,6 +1,10 @@
 import { Spinner } from '../Components/spinner/spinner'
 export async function apiFetch(endpoint, options = {}) {
-  const baseUrl = 'http://localhost:3000/api/v1'
+  const baseUrl =
+    window.location.hostname === 'localhost'
+      ? 'http://localhost:3000/api/v1'
+      : 'https://proyecto10-skillshare.onrender.com/api/v1'
+  // const baseUrl = 'http://localhost:3000/api/v1'
   const token = localStorage.getItem('token')
 
   const defaultHeaders = {}

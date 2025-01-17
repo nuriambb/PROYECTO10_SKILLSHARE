@@ -5,6 +5,7 @@ import { Register } from './register'
 import { Spinner } from '../../Components/spinner/spinner'
 import { Collage } from '../../Components/collage/collage'
 import { Navigate } from '../../Routes/navigate'
+import { apiFetch } from '../../Utils/apiFetch'
 
 export const loginRegister = () => {
   const main = document.querySelector('main')
@@ -104,7 +105,7 @@ const Login = (elementoPadre) => {
     }
 
     try {
-      const res = await fetch('http://localhost:3000/api/v1/users/login', {
+      const res = await apiFetch('/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

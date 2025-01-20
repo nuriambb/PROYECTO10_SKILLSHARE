@@ -2,7 +2,7 @@ import './_loginRegister.scss'
 import { Home } from '../Home/home'
 import { crearFormulario } from '../../Components/Formulario/formulario'
 import { Register } from './register'
-import { Spinner } from '../../Components/spinner/spinner'
+
 import { Collage } from '../../Components/collage/collage'
 import { Navigate } from '../../Routes/navigate'
 import { apiFetch } from '../../Utils/apiFetch'
@@ -78,10 +78,6 @@ const Login = (elementoPadre) => {
   )
   form.className = 'form'
 
-  const spinner = Spinner()
-  spinner.style.display = 'none'
-  form.appendChild(spinner)
-
   const inputEmail = form.querySelector('input[placeholder="email"]')
   const inputPassword = form.querySelector('input[placeholder="contraseña"]')
 
@@ -110,11 +106,25 @@ const Login = (elementoPadre) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       })
+      console.log('Respuesta de la API:', res)
 
-      spinner.style.display = 'none'
+      if (res && res.token && res.user) {
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('user', JSON.stringify(res.user))
+        console.log('Inicio de sesión exitoso:', res)
 
-      if (!res.ok) {
+        Navigate('home')
+      } else {
+        const pError = document.createElement('p')
+        pError.textContent = 'Error al iniciar sesión, datos incorrectos.'
+        pError.className = 'error-msg'
+        form.append(pError)
+      }
+
+      /* if (!res.ok) {
         const errorText = await res.json()
+        console.log(errorText)
+
         const pError = document.createElement('p')
         pError.textContent = errorText
         pError.className = 'error-msg'
@@ -129,11 +139,9 @@ const Login = (elementoPadre) => {
       localStorage.setItem('user', JSON.stringify(data.user))
       console.log('Inicio de sesión exitoso:', data)
 
-      Navigate('home')
+      Navigate('home')*/
     } catch (error) {
       console.error('Error al iniciar sesión:', error)
-
-      spinner.style.display = 'none'
     }
   })
 }

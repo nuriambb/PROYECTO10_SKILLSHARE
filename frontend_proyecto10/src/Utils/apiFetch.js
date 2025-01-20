@@ -32,12 +32,14 @@ export async function apiFetch(endpoint, options = {}) {
     console.log('Configuración de la solicitud:', config)
     const response = await fetch(`${baseUrl}${endpoint}`, config)
 
+    console.log('Respuesta:', response)
+
     let responseData
 
     try {
       responseData = await response.json()
     } catch (e) {
-      console.error('Detalles del error:', error.message)
+      console.error('Detalles del error:', e.message)
       responseData = null
     }
 

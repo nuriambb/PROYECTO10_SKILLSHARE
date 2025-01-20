@@ -51,7 +51,8 @@ export async function apiFetch(endpoint, options = {}) {
 
     if (!response.ok) {
       const errorMessage = responseData?.message || 'Error en la solicitud'
-      throw new Error(errorMessage)
+      hideSpinner()
+      return { error: true, message: errorMessage }
     }
     hideSpinner()
     return responseData || response

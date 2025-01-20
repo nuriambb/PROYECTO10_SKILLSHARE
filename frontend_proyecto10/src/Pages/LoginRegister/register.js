@@ -1,5 +1,6 @@
 import { crearFormulario } from '../../Components/Formulario/formulario'
 import { Home } from '../Home/home'
+import { apiFetch } from '../../Utils/apiFetch'
 import { Navigate } from '../../Routes/navigate'
 import './_loginRegister.scss'
 
@@ -80,39 +81,42 @@ export const Register = (elementoPadre) => {
       return
     }
 
-    errorMsg.style.display = 'none'
-
     try {
       const res = await apiFetch('/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
       })
-
-      if (!res.ok) {
-        const errorData = await res.json()
-        if (errorData.message.includes('Este usuario ya está registrado')) {
-          showError('El usuario ya está registrado.')
-        } else {
-          showError('Error en la solicitud de registro.')
-        }
+      console.log('Respuesta de la API:', res)
+      if (
+        res &&
+        res.message &&
+        res.message.includes('Este usuario ya está registrado')
+      ) {
+        showError('El usuario ya está registrado.')
         return
       }
 
-      const data = await res.json()
-      console.log('Token:', data.token)
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
-      localStorage.setItem('user', JSON.stringify(data))
-      localStorage.setItem('token', data.token)
-      console.log('Registro exitoso:', data)
-      registserPage.style.display = 'none'
-      Navigate('home')
+      if (res && res.token && res.user) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        localStorage.setItem('user', JSON.stringify(res.user))
+        localStorage.setItem('token', res.token)
+
+        console.log('Registro exitoso:', res)
+        registserPage.style.display = 'none'
+        Navigate('home')
+      } else {
+        showError('Error en la solicitud de registro.')
+      }
     } catch (error) {
       console.error('Error al registrar el usuario:', error)
       showError('Error al registrar el usuario.')
     }
+
+    errorMsg.style.display = 'none'
   })
+
   registerFormDiv.append(form)
 
   elementoPadre.appendChild(registserPage)

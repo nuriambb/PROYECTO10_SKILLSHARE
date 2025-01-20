@@ -1,6 +1,7 @@
 import { Spinner } from '../Components/spinner/spinner'
 export async function apiFetch(endpoint, options = {}) {
   const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'
+  console.log('Base URL utilizada:', baseUrl)
   /*const baseUrl =
     window.location.hostname === 'localhost'
       ? 'http://localhost:3000/api/v1'
